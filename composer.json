@@ -1,0 +1,31 @@
+{
+    "name": "bitmotion/marketing-automation",
+    "description": "",
+    "type": "typo3-cms-extension",
+    "keywords": [
+        "TYPO3 CMS",
+        "Marketing",
+        "Automation"
+    ],
+    "homepage": "https://github.com/bitmotion/typo3-marketing-automation",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "typo3/cms-core": "^8.7"
+    },
+    "replace": {
+        "marketing_automation": "self.version",
+        "typo3-ter/marketing-automation": "self.version"
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "marketing_automation",
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "app-dir": ".Build",
+            "web-dir": ".Build/public"
+        }
+    }
+}
