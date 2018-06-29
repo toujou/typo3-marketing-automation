@@ -1,2 +1,5 @@
 # cat=General; type=string; label=LLL:EXT:marketing_automation/Resources/Private/Language/locallang_em.xlf:general.cookieName
 cookieName = tx_marketingautomation_persona
+
+# cat=General; type=int; label=LLL:EXT:marketing_automation/Resources/Private/Language/locallang_em.xlf:general.lifetime
+lifetime = 2592000
