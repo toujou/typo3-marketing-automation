@@ -12,6 +12,11 @@
     "require": {
         "typo3/cms-core": "^8.7"
     },
+    "autoload": {
+        "psr-4": {
+            "Bitmotion\\MarketingAutomation\\": "Classes/"
+        }
+    },
     "replace": {
         "marketing_automation": "self.version",
         "typo3-ter/marketing-automation": "self.version"
