@@ -28,7 +28,7 @@ class Dispatcher implements SingletonInterface
         $extensionConfiguration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['marketing_automation'], ['allowed_classes' => false]);
 
         $this->cookieName = $cookieName ?: $extensionConfiguration['cookieName'];
-        $this->cookieLifetime = $cookieLifetime ?: $extensionConfiguration['lifetime'];
+        $this->cookieLifetime = $cookieLifetime ?: (int)$extensionConfiguration['lifetime'];
     }
 
     public function addSubscriber(string $className)
