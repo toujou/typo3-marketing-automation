@@ -79,7 +79,7 @@ class Cookie
     public function withData(array $data): Cookie
     {
         $clonedObject = clone $this;
-        $clonedObject->data = array_merge($this->data, $data);
+        $clonedObject->data = array_replace_recursive($this->data, $data);
 
         return $clonedObject;
     }
