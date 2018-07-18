@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace Bitmotion\MarketingAutomation\Cookie;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class Cookie
 {
     /**
@@ -17,31 +19,24 @@ class Cookie
     /**
      * @var int
      */
-    protected $lastModified;
-
-    /**
-     * @var array
-     */
-    protected $data;
+    protected $language;
 
     public static function createFromGlobals(string $cookieName): Cookie
     {
-        $cookieInformation = json_decode(base64_decode($_COOKIE[$cookieName] ?? ''), true) ?: [];
+        $cookieInformation = GeneralUtility::trimExplode('.', $_COOKIE[$cookieName] ?? '');
 
         return new self(
             $cookieName,
-            (int)($cookieInformation['persona'] ?? 0),
-            (int)($cookieInformation['tstamp'] ?? 0),
-            (array)($cookieInformation['data'] ?? [])
+            (int)($cookieInformation[0] ?? 0),
+            (int)($cookieInformation[1] ?? -1)
         );
     }
 
-    public function __construct(string $cookieName, int $personaId, int $lastModified, array $data)
+    public function __construct(string $cookieName, int $personaId, int $language)
     {
         $this->cookieName = $cookieName;
         $this->personaId = $personaId;
-        $this->lastModified = $lastModified;
-        $this->data = $data;
+        $this->language = $language;
     }
 
     /**
@@ -55,17 +50,9 @@ class Cookie
     /**
      * @return int
      */
-    public function getLastModified(): int
+    public function getLanguage(): int
     {
-        return $this->lastModified;
-    }
-
-    /**
-     * @return array
-     */
-    public function getData(): array
-    {
-        return $this->data;
+        return $this->language;
     }
 
     public function withPersonaId(int $personaId): Cookie
@@ -76,10 +63,10 @@ class Cookie
         return $clonedObject;
     }
 
-    public function withData(array $data): Cookie
+    public function withLanguage(int $language): Cookie
     {
         $clonedObject = clone $this;
-        $clonedObject->data = array_replace_recursive($this->data, $data);
+        $clonedObject->language = $language;
 
         return $clonedObject;
     }
@@ -88,13 +75,13 @@ class Cookie
     {
         setcookie(
             $this->cookieName,
-            base64_encode(json_encode(
+            implode(
+                '.',
                 [
-                    'persona' => $this->personaId,
-                    'data' => $this->data,
-                    'tstamp' => time(),
+                    $this->personaId,
+                    $this->language,
                 ]
-            )),
+            ),
             time() + $lifetime,
             '/',
             '',
