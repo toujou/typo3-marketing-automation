@@ -7,7 +7,7 @@
                 <source>Set the name for the cookie used for the frontend user session</source>
             </trans-unit>
             <trans-unit id="general.lifetime">
-                <source>Set the number of seconds the cookie should be valid. Default: 2592000 (30 days)</source>
+                <source>Set the number of seconds the cookie should be valid:Default: 300 (5 minutes)</source>
             </trans-unit>
         </body>
     </file>
