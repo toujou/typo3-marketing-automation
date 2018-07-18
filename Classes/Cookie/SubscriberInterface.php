@@ -4,7 +4,7 @@ namespace Bitmotion\MarketingAutomation\Cookie;
 
 interface SubscriberInterface
 {
-    public function needsUpdate(Cookie $cookie): bool;
+    public function needsUpdate(Cookie $oldCookie, Cookie $newCookie): bool;
 
     public function update(Cookie $cookie): Cookie;
 }

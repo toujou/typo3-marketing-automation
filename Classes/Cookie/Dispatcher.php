@@ -38,8 +38,7 @@ class Dispatcher implements SingletonInterface
 
     public function dispatch(array $_, TypoScriptFrontendController $typoScriptFrontendController)
     {
-        $cookieObject = Cookie::createFromGlobals($this->cookieName);
-        $cookieObjectId = spl_object_hash($cookieObject);
+        $oldCookieObject = $newCookieObject = Cookie::createFromGlobals($this->cookieName);
 
         foreach ($this->subscribers as $subscriber) {
             $object = GeneralUtility::makeInstance($subscriber, $typoScriptFrontendController);
@@ -47,13 +46,13 @@ class Dispatcher implements SingletonInterface
                 throw new \RuntimeException('Class ' . $subscriber . ' needs to implement Bitmotion\MarketingAutomation\SubscriberInterface', 1530273364);
             }
 
-            if ($object->needsUpdate($cookieObject)) {
-                $cookieObject = $object->update($cookieObject);
+            if ($object->needsUpdate($oldCookieObject, $newCookieObject)) {
+                $newCookieObject = $object->update($newCookieObject);
             }
         }
 
-        if ($cookieObjectId !== spl_object_hash($cookieObject)) {
-            $cookieObject->set($this->cookieLifetime);
+        if ($oldCookieObject !== $newCookieObject) {
+            $newCookieObject->set($this->cookieLifetime);
         }
     }
 }
