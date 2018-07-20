@@ -1,0 +1,162 @@
+<?php
+declare(strict_types = 1);
+namespace Bitmotion\MarketingAutomation\Persona;
+
+use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
+use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\EnforceableQueryRestrictionInterface;
+use TYPO3\CMS\Core\Database\Query\Restriction\QueryRestrictionInterface;
+use TYPO3\CMS\Core\SingletonInterface;
+
+/**
+ * Fulfills TYPO3 API to add restriction fields for editors
+ * and restricts rendering according to what has been selected
+ */
+class PersonaRestriction implements SingletonInterface, QueryRestrictionInterface, EnforceableQueryRestrictionInterface
+{
+    const PERSONA_ENABLE_FIELDS_KEY = 'tx_marketingautomation_persona';
+
+    private static $sqlFieldTemplate = <<<'EOT'
+
+
+CREATE TABLE %s (
+    %s varchar(100) DEFAULT '' NOT NULL
+);
+
+
+EOT;
+
+    private static $tcaFieldTemplate = [
+        'label' => 'LLL:EXT:marketing_automation/Resources/Private/Language/locallang_tca.xlf:tx_marketingautomation_persona_restriction.label',
+        'config' => [
+            'type' => 'select',
+            'renderType' => 'selectMultipleSideBySide',
+            'exclusiveKeys' => '-1',
+            'foreign_table' => 'tx_marketingautomation_persona',
+            'foreign_table_where' => 'ORDER BY tx_marketingautomation_persona.title',
+            'items' => [
+                [
+                    'LLL:EXT:marketing_automation/Resources/Private/Language/locallang_tca.xlf:tx_marketingautomation_persona_restriction.hideWhenNoMatch',
+                    -1,
+                ],
+                [
+                    'LLL:EXT:marketing_automation/Resources/Private/Language/locallang_tca.xlf:tx_marketingautomation_persona_restriction.personaItemSeparator',
+                    '--div--',
+                ],
+            ],
+        ],
+    ];
+
+    /**
+     * @var Persona
+     */
+    private $persona;
+
+    public function fetchCurrentPersona(Persona $persona)
+    {
+        $this->persona = $persona;
+    }
+
+    public function isEnforced(): bool
+    {
+        return $this->isEnabled();
+    }
+
+    public function buildExpression(array $queriedTables, ExpressionBuilder $expressionBuilder): CompositeExpression
+    {
+        $constraints = [];
+
+        if (!$this->isEnabled()) {
+            return $expressionBuilder->orX(...$constraints);
+        }
+
+        foreach ($queriedTables as $tableAlias => $tableName) {
+            $personaFieldName = $GLOBALS['TCA'][$tableName]['ctrl']['enablecolumns'][self::PERSONA_ENABLE_FIELDS_KEY] ?? null;
+            if (!empty($personaFieldName)) {
+                $fieldName = $tableAlias . '.' . $personaFieldName;
+                $constraints = [
+                    $expressionBuilder->eq($fieldName, $expressionBuilder->literal('')),
+                ];
+                $constraints[] = $expressionBuilder->inSet(
+                    $fieldName,
+                    $expressionBuilder->literal((string)$this->persona->getId())
+                );
+            }
+        }
+
+        return $expressionBuilder->orX(...$constraints);
+    }
+
+    private function isEnabled()
+    {
+        return TYPO3_MODE === 'FE';
+    }
+
+    /**
+     * Add persona fields to tables that provide persona restriction
+     *
+     * @param array $sqlString Current SQL statements to be executed
+     * @return array Modified arguments of SqlExpectedSchemaService::tablesDefinitionIsBeingBuilt signal
+     */
+    public function getPersonaFieldsRequiredDatabaseSchema(array $sqlString): array
+    {
+        $additionalSqlString = $this->buildPersonaFieldsRequiredDatabaseSchema();
+        if (!empty($additionalSqlString)) {
+            $sqlString[] = $additionalSqlString;
+        }
+
+        return ['sqlString' => $sqlString];
+    }
+
+    private function buildPersonaFieldsRequiredDatabaseSchema(): string
+    {
+        $sql = '';
+        foreach ($GLOBALS['TCA'] as $table => $config) {
+            $personaFieldName = $config['ctrl']['enablecolumns'][self::PERSONA_ENABLE_FIELDS_KEY] ?? '';
+            if ($personaFieldName) {
+                $sql .= sprintf(self::$sqlFieldTemplate, $table, $personaFieldName);
+            }
+        }
+
+        return $sql;
+    }
+
+    public function addPersonaRestrictionFieldToTca(array $tca): array
+    {
+        foreach ($tca as $table => &$config) {
+            $personaFieldName = $config['ctrl']['enablecolumns'][self::PERSONA_ENABLE_FIELDS_KEY] ?? '';
+            if ($personaFieldName) {
+                $config['columns'][$personaFieldName] = array_replace_recursive(
+                    self::$tcaFieldTemplate,
+                    $config['columns'][$personaFieldName] ?? []
+                );
+                // Expose current config to globals TCA, make the below TYPO3 API work, which works on globals
+                $GLOBALS['TCA'][$table] = &$config;
+                \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+                    $table,
+                    $personaFieldName,
+                    '',
+                    'after:fe_group'
+                );
+                // Remove the global exposure we created above
+                unset($GLOBALS['TCA'][$table]);
+            }
+        }
+
+        return [$tca];
+    }
+
+    /**
+     * Modify the cache hash to add persona dimension if applicable
+     *
+     * @param array &$params Array of parameters: hashParameters, createLockHashBase
+     * @return void
+     */
+    public function addPersonaToCacheIdentifier(&$params)
+    {
+        if (!$this->persona->isValid()) {
+            return;
+        }
+        $params['hashParameters'][self::PERSONA_ENABLE_FIELDS_KEY] = (string)$this->persona->getId();
+    }
+}

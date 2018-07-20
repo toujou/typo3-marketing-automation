@@ -12,6 +12,15 @@
             <trans-unit id="tx_marketingautomation_persona.description">
                 <source>Description</source>
             </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona_restriction.label">
+                <source>Persona restriction</source>
+            </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona_restriction.hideWhenNoMatch">
+                <source>Hide when no matching persona was found</source>
+            </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona_restriction.personaItemSeparator">
+                <source>__Persona:__</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
