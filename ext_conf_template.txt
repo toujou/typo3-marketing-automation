@@ -2,4 +2,4 @@
 cookieName = tx_marketingautomation_persona
 
 # cat=General; type=int; label=LLL:EXT:marketing_automation/Resources/Private/Language/locallang_em.xlf:general.lifetime
-lifetime = 300
+cookieLifetime = 300

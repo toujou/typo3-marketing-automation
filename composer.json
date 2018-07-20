@@ -10,7 +10,8 @@
     "homepage": "https://github.com/bitmotion/typo3-marketing-automation",
     "license": "GPL-2.0-or-later",
     "require": {
-        "typo3/cms-core": "^8.7"
+        "typo3/cms-core": "^8.7",
+        "typo3/cms-extbase": "^8.7"
     },
     "autoload": {
         "psr-4": {

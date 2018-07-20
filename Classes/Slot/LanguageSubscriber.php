@@ -2,8 +2,8 @@
 declare(strict_types = 1);
 namespace Bitmotion\MarketingAutomation\Slot;
 
-use Bitmotion\MarketingAutomation\Cookie\Cookie;
-use Bitmotion\MarketingAutomation\Cookie\SubscriberInterface;
+use Bitmotion\MarketingAutomation\Dispatcher\SubscriberInterface;
+use Bitmotion\MarketingAutomation\Persona\Persona;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class LanguageSubscriber implements SubscriberInterface
@@ -13,20 +13,20 @@ class LanguageSubscriber implements SubscriberInterface
      */
     protected $typoScriptFrontendController;
 
-    public function __construct(TypoScriptFrontendController $typoScriptFrontendController)
+    public function __construct(TypoScriptFrontendController $typoScriptFrontendController = null)
     {
-        $this->typoScriptFrontendController = $typoScriptFrontendController;
+        $this->typoScriptFrontendController = $typoScriptFrontendController ?: $GLOBALS['TSFE'];
     }
 
-    public function needsUpdate(Cookie $oldCookie, Cookie $newCookie): bool
+    public function needsUpdate(Persona $currentPersona, Persona $newPersona): bool
     {
-        $language = $newCookie->getLanguage();
+        $language = $newPersona->getLanguage();
 
         return $this->typoScriptFrontendController->sys_language_uid !== $language;
     }
 
-    public function update(Cookie $cookie): Cookie
+    public function update(Persona $persona): Persona
     {
-        return $cookie->withLanguage($this->typoScriptFrontendController->sys_language_uid);
+        return $persona->withLanguage($this->typoScriptFrontendController->sys_language_uid);
     }
 }
