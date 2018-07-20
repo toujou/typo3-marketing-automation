@@ -6,7 +6,6 @@ use Bitmotion\MarketingAutomation\Persona\Persona;
 use Bitmotion\MarketingAutomation\Storage\Cookie;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class Dispatcher implements SingletonInterface
 {
