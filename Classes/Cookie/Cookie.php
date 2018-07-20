@@ -21,7 +21,7 @@ class Cookie
      */
     protected $language;
 
-    public static function createFromGlobals(string $cookieName): Cookie
+    public static function createFromGlobals(string $cookieName): self
     {
         $cookieInformation = GeneralUtility::trimExplode('.', $_COOKIE[$cookieName] ?? '');
 
@@ -39,23 +39,17 @@ class Cookie
         $this->language = $language;
     }
 
-    /**
-     * @return int
-     */
     public function getPersonaId(): int
     {
         return $this->personaId;
     }
 
-    /**
-     * @return int
-     */
     public function getLanguage(): int
     {
         return $this->language;
     }
 
-    public function withPersonaId(int $personaId): Cookie
+    public function withPersonaId(int $personaId): self
     {
         $clonedObject = clone $this;
         $clonedObject->personaId = $personaId;
@@ -63,7 +57,7 @@ class Cookie
         return $clonedObject;
     }
 
-    public function withLanguage(int $language): Cookie
+    public function withLanguage(int $language): self
     {
         $clonedObject = clone $this;
         $clonedObject->language = $language;
