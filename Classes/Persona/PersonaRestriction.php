@@ -89,7 +89,7 @@ EOT;
 
     private function isEnabled()
     {
-        return TYPO3_MODE === 'FE';
+        return $this->persona !== null && TYPO3_MODE === 'FE';
     }
 
     /**
