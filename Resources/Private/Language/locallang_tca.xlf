@@ -13,13 +13,13 @@
                 <source>Description</source>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.label">
-                <source>Persona restriction</source>
+                <source>Display only to these personas</source>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.hideWhenNoMatch">
-                <source>Hide when no matching persona was found</source>
+                <source>(Not assigned to any persona)</source>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.personaItemSeparator">
-                <source>__Persona:__</source>
+                <source>__Personas:__</source>
             </trans-unit>
         </body>
     </file>
