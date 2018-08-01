@@ -1,6 +1,6 @@
 {
     "name": "bitmotion/marketing-automation",
-    "description": "Base TYPO3 extension that allows Targeting and Personalization of TYPO3 content: Limit pages, content elements etc. to certain "Personas". Determination of Personas can come from various sources (requires add-on extensions).",
+    "description": "Base TYPO3 extension that allows Targeting and Personalization of TYPO3 content: Limit pages, content elements etc. to certain \"Personas\". Determination of Personas can come from various sources (requires add-on extensions).",
     "type": "typo3-cms-extension",
     "keywords": [
         "TYPO3 CMS",
