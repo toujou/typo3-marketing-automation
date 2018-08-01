@@ -7,7 +7,7 @@
                 <source>Set the Name of Persona Cookie</source>
             </trans-unit>
             <trans-unit id="general.lifetime">
-                <source>Set the number of seconds the cookie should be valid:Default: 300 (5 minutes)</source>
+                <source>Persona refresh time in seconds:Default: 60 (1 minute)</source>
             </trans-unit>
         </body>
     </file>
