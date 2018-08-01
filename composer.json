@@ -1,13 +1,16 @@
 {
     "name": "bitmotion/marketing-automation",
-    "description": "",
+    "description": "Base TYPO3 extension that allows Targeting and Personalization of TYPO3 content: Limit pages, content elements etc. to certain "Personas". Determination of Personas can come from various sources (requires add-on extensions).",
     "type": "typo3-cms-extension",
     "keywords": [
         "TYPO3 CMS",
         "Marketing",
         "Automation"
     ],
-    "homepage": "https://github.com/bitmotion/typo3-marketing-automation",
+    "homepage": "https://www.bitmotion.de",
+    "support": {
+        "issues": "https://github.com/bitmotion/typo3-marketing-automation/issues"
+    },
     "license": "GPL-2.0-or-later",
     "require": {
         "typo3/cms-core": "^8.7",

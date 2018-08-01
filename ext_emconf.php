@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array (
   'title' => 'Marketing Automation',
-  'description' => '',
+  'description' => 'Base TYPO3 extension that allows Targeting and Personalization of TYPO3 content: Limit pages, content elements etc. to certain "Personas". Determination of Personas can come from various sources (requires add-on extensions).',
   'category' => 'fe',
   'state' => 'stable',
   'uploadfolder' => 0,
