@@ -20,7 +20,8 @@ class BackendIconOverlayHook
     public function postOverlayPriorityLookup($table, $row, &$status, string $iconName)
     {
         $personaFieldName = $GLOBALS['TCA'][$table]['ctrl']['enablecolumns'][PersonaRestriction::PERSONA_ENABLE_FIELDS_KEY] ?? '';
-        if (!$personaFieldName || empty($row[$personaFieldName])) {
+        $feGroupsFieldName = $GLOBALS['TCA'][$table]['ctrl']['enablecolumns']['fe_group'] ?? '';
+        if (!$personaFieldName || empty($row[$personaFieldName]) || !empty($status[$feGroupsFieldName])) {
             return $iconName;
         }
         $status[PersonaRestriction::PERSONA_ENABLE_FIELDS_KEY] = true;
