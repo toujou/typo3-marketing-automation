@@ -16,7 +16,10 @@
                 <source>Display only to these personas</source>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.hideWhenNoMatch">
-                <source>(Not assigned to any persona)</source>
+                <source>Hide when no persona matches</source>
+            </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona_restriction.showWhenNoMatch">
+                <source>Show when no selected persona matches</source>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.personaItemSeparator">
                 <source>__Personas:__</source>

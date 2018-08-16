@@ -40,6 +40,10 @@ EOT;
                     -1,
                 ],
                 [
+                    'LLL:EXT:marketing_automation/Resources/Private/Language/locallang_tca.xlf:tx_marketingautomation_persona_restriction.showWhenNoMatch',
+                    -2,
+                ],
+                [
                     'LLL:EXT:marketing_automation/Resources/Private/Language/locallang_tca.xlf:tx_marketingautomation_persona_restriction.personaItemSeparator',
                     '--div--',
                 ],
@@ -81,6 +85,12 @@ EOT;
                     $fieldName,
                     $expressionBuilder->literal((string)$this->persona->getId())
                 );
+                if ($this->persona->getId() === 0) {
+                    $constraints[] = $expressionBuilder->inSet(
+                        $fieldName,
+                        $expressionBuilder->literal('-2')
+                    );
+                }
             }
         }
 
