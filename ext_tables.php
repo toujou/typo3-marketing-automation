@@ -12,4 +12,11 @@ call_user_func(function () {
             'source' => 'EXT:marketing_automation/Resources/Public/Icons/tx_marketingautomation_persona.svg',
         ]
     );
+    $iconRegistry->registerIcon(
+        'overlay-frontendusers-tx_marketingautomation_persona',
+        TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        [
+            'source' => 'EXT:marketing_automation/Resources/Public/Icons/overlay-personas.svg',
+        ]
+    );
 });
