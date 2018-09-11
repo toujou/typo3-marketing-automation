@@ -4,31 +4,24 @@
         <header />
         <body>
             <trans-unit id="tx_marketingautomation_persona">
-                <source>Persona</source>
                 <target>Persona</target>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona.title">
-                <source>Title</source>
                 <target>Titel</target>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona.description">
-                <source>Description</source>
                 <target>Beschreibung</target>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.label">
-                <source>Limit to Targeting Personas:</source>
                 <target>Nur für Targeting Personas:</target>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.hideWhenNoMatch">
-                <source>All Personas (but hide when none matches)</source>
                 <target>Alle erkannten Personas (sonst verbergen)</target>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.showWhenNoMatch">
-                <source>Show if no Persona matches</source>
                 <target>Anzeigen, falls keine Persona erkannt wurde</target>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.personaItemSeparator">
-                <source>__Personas:__</source>
                 <target>__Personas:__</target>
             </trans-unit>
         </body>
