@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+    <file source-language="en" target-language="nl" datatype="plaintext" original="messages" date="2018-11-21T11:17:23Z" product-name="marketing_automation">
+        <header />
+        <body>
+            <trans-unit id="tx_marketingautomation_persona">
+                <target>Persona</target>
+            </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona.title">
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona.description">
+                <target>Beschrijving</target>
+            </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona_restriction.label">
+                <target>Alleen voor gedefinieerde persona's:</target>
+            </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona_restriction.hideWhenNoMatch">
+                <target>Alle persona's (bij geen, verbergen)</target>
+            </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona_restriction.showWhenNoMatch">
+                <target>Weergeven wanneer geen persona aanwezig is</target>
+            </trans-unit>
+            <trans-unit id="tx_marketingautomation_persona_restriction.personaItemSeparator">
+                <target>__Persona's:__</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
