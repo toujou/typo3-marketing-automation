@@ -16,7 +16,16 @@ class LanguageSubscriber implements SubscriberInterface
 
     public function __construct()
     {
-        $this->languageId = (int)GeneralUtility::_GP('L');
+        if (class_exists(\TYPO3\CMS\Core\Context\Context::class)) {
+            try {
+                $languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+                $this->languageId = (int)$languageAspect->getId();
+            } catch (\Exception $e) {
+                $this->languageId = 0;
+            }
+        } else {
+            $this->languageId = (int)GeneralUtility::_GP('L');
+        }
     }
 
     public function needsUpdate(Persona $currentPersona, Persona $newPersona): bool

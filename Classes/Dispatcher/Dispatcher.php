@@ -31,7 +31,7 @@ class Dispatcher implements SingletonInterface
 
     public function dispatch()
     {
-        $extensionConfiguration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['marketing_automation'], ['allowed_classes' => false]);
+        $extensionConfiguration = $this->getExtensionConfiguration();
 
         $storage = GeneralUtility::makeInstance(Cookie::class, $extensionConfiguration['cookieName'], (int)$extensionConfiguration['cookieLifetime']);
         $data = $storage->read();
@@ -64,6 +64,19 @@ class Dispatcher implements SingletonInterface
         foreach ($this->listeners as $listener) {
             $ref = null;
             GeneralUtility::callUserFunction($listener, $newPersona, $ref);
+        }
+    }
+
+    protected function getExtensionConfiguration(): array
+    {
+        if (class_exists(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)) {
+            try {
+                return GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('marketing_automation');
+            } catch (\Exception $e) {
+                return [];
+            }
+        } else {
+            return unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['marketing_automation'], ['allowed_classes' => false]);
         }
     }
 }
