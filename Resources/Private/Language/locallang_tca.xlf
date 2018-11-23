@@ -13,13 +13,13 @@
                 <source>Description</source>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.label">
-                <source>Limit to Targeting Personas:</source>
+                <source>Limit to targeting personas:</source>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.hideWhenNoMatch">
-                <source>All Personas (but hide when none matches)</source>
+                <source>All personas (but hide when none matches)</source>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.showWhenNoMatch">
-                <source>Show if no Persona matches</source>
+                <source>Show if no persona matches</source>
             </trans-unit>
             <trans-unit id="tx_marketingautomation_persona_restriction.personaItemSeparator">
                 <source>__Personas:__</source>

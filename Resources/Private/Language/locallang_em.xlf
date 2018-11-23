@@ -4,10 +4,10 @@
         <header />
         <body>
             <trans-unit id="general.cookieName">
-                <source>Set the Name of Persona Cookie</source>
+                <source>Set the name of persona cookie</source>
             </trans-unit>
             <trans-unit id="general.lifetime">
-                <source>Persona refresh time in seconds:Default: 60 (1 minute)</source>
+                <source>Persona refresh time in seconds: Default: 60 (1 minute)</source>
             </trans-unit>
         </body>
     </file>
