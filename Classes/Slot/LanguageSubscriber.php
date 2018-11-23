@@ -42,7 +42,7 @@ class LanguageSubscriber implements SubscriberInterface
         return $persona->withLanguage($this->languageId);
     }
 
-    protected function isValidLanguageId()
+    protected function isValidLanguageId(): bool
     {
         if ($this->languageId === 0) {
             return true;
