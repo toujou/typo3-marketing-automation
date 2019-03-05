@@ -23,7 +23,11 @@ call_user_func(function () {
     if (class_exists('\TYPO3\CMS\Install\Service\SqlExpectedSchemaService')) {
         $signalClass = \TYPO3\CMS\Install\Service\SqlExpectedSchemaService::class;
     } else {
-        $signalClass = \TYPO3\CMS\Extensionmanager\Utility\InstallUtility::class;
+        /**
+         * TODO: Use SqlReader::class in future
+         * @see https://forge.typo3.org/issues/86851
+         */
+        $signalClass = 'TYPO3\\CMS\\Install\\Service\\SqlExpectedSchemaService';
     }
 
     $signalSlotDispatcher->connect(
