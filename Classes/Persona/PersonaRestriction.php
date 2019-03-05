@@ -109,7 +109,8 @@ EOT;
      * Add persona fields to tables that provide persona restriction
      *
      * @param array $sqlString Current SQL statements to be executed
-     * @return array Modified arguments of SqlExpectedSchemaService::tablesDefinitionIsBeingBuilt signal
+     *
+     * @return array Modified arguments of SqlReader::emitTablesDefinitionIsBeingBuiltSignal signal
      */
     public function getPersonaFieldsRequiredDatabaseSchema(array $sqlString): array
     {
