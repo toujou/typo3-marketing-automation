@@ -22,7 +22,7 @@
         }
     },
     "replace": {
-        "marketing_automation": "self.version",
+        "bitmotion/marketing-automation": "self.version",
         "typo3-ter/marketing-automation": "self.version"
     },
     "config": {
