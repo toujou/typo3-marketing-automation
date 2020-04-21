@@ -156,7 +156,6 @@ class PersonaRestriction implements SingletonInterface, QueryRestrictionInterfac
      * Modify the cache hash to add persona dimension if applicable
      *
      * @param array &$params Array of parameters: hashParameters, createLockHashBase
-     * @return void
      */
     public function addPersonaToCacheIdentifier(&$params): void
     {
