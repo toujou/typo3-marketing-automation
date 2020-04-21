@@ -4,15 +4,9 @@ namespace Bitmotion\MarketingAutomation\Persona;
 
 class Persona
 {
-    /**
-     * @var int
-     */
-    protected $id;
+    protected $id = 0;
 
-    /**
-     * @var int
-     */
-    protected $language;
+    protected $language = 0;
 
     public function __construct(int $id, int $language)
     {
@@ -35,9 +29,6 @@ class Persona
         return $this->language;
     }
 
-    /**
-     * @return Persona
-     */
     public function withId(int $id): self
     {
         $clonedObject = clone $this;
@@ -46,9 +37,6 @@ class Persona
         return $clonedObject;
     }
 
-    /**
-     * @return Persona
-     */
     public function withLanguage(int $language): self
     {
         $clonedObject = clone $this;

@@ -9,15 +9,9 @@ use TYPO3\CMS\Extbase\Security\Exception\InvalidHashException;
 
 class Cookie
 {
-    /**
-     * @var string
-     */
-    protected $cookieName;
+    protected $cookieName = '';
 
-    /**
-     * @var int
-     */
-    protected $cookieLifetime;
+    protected $cookieLifetime = 0;
 
     /**
      * @var HashService
@@ -45,7 +39,7 @@ class Cookie
         return explode('.', rtrim($data, '.'));
     }
 
-    public function save(array $data)
+    public function save(array $data): void
     {
         setcookie(
             $this->cookieName,

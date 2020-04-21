@@ -17,17 +17,9 @@ use TYPO3\CMS\Core\SingletonInterface;
  */
 class PersonaRestriction implements SingletonInterface, QueryRestrictionInterface, EnforceableQueryRestrictionInterface, PageLayoutViewDrawFooterHookInterface
 {
-    const PERSONA_ENABLE_FIELDS_KEY = 'tx_marketingautomation_persona';
+    public const PERSONA_ENABLE_FIELDS_KEY = 'tx_marketingautomation_persona';
 
-    private static $sqlFieldTemplate = <<<'EOT'
-
-
-CREATE TABLE %s (
-    %s varchar(100) DEFAULT '' NOT NULL
-);
-
-
-EOT;
+    private static $sqlFieldTemplate = 'CREATE TABLE %s ( %s varchar(100) DEFAULT \'\' NOT NULL);';
 
     private static $tcaFieldTemplate = [
         'label' => 'LLL:EXT:marketing_automation/Resources/Private/Language/locallang_tca.xlf:tx_marketingautomation_persona_restriction.label',
@@ -59,7 +51,7 @@ EOT;
      */
     private $persona;
 
-    public function fetchCurrentPersona(Persona $persona)
+    public function fetchCurrentPersona(Persona $persona): void
     {
         $this->persona = $persona;
     }
@@ -100,7 +92,7 @@ EOT;
         return $expressionBuilder->orX(...$constraints);
     }
 
-    private function isEnabled()
+    private function isEnabled(): bool
     {
         return $this->persona !== null && TYPO3_MODE === 'FE';
     }
@@ -166,15 +158,14 @@ EOT;
      * @param array &$params Array of parameters: hashParameters, createLockHashBase
      * @return void
      */
-    public function addPersonaToCacheIdentifier(&$params)
+    public function addPersonaToCacheIdentifier(&$params): void
     {
-        if (!$this->persona->isValid()) {
-            return;
+        if ($this->persona->isValid()) {
+            $params['hashParameters'][self::PERSONA_ENABLE_FIELDS_KEY] = (string)$this->persona->getId();
         }
-        $params['hashParameters'][self::PERSONA_ENABLE_FIELDS_KEY] = (string)$this->persona->getId();
     }
 
-    public function preProcess(PageLayoutView &$parentObject, &$info, array &$row)
+    public function preProcess(PageLayoutView &$parentObject, &$info, array &$row): void
     {
         $personaFieldName = $GLOBALS['TCA']['tt_content']['ctrl']['enablecolumns'][self::PERSONA_ENABLE_FIELDS_KEY] ?? '';
         if ($personaFieldName === '' || ($row[$personaFieldName] ?? '') === '') {

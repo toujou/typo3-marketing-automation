@@ -9,27 +9,21 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class Dispatcher implements SingletonInterface
 {
-    /**
-     * @var array
-     */
     protected $subscribers = [];
 
-    /**
-     * @var array
-     */
     protected $listeners = [];
 
-    public function addSubscriber(string $className)
+    public function addSubscriber(string $className): void
     {
         $this->subscribers[] = $className;
     }
 
-    public function addListener(string $className)
+    public function addListener(string $className): void
     {
         $this->listeners[] = $className;
     }
 
-    public function dispatch()
+    public function dispatch(): void
     {
         $extensionConfiguration = $this->getExtensionConfiguration();
 
