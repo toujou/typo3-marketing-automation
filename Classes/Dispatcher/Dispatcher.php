@@ -26,19 +26,21 @@ class Dispatcher implements SingletonInterface
     public function dispatch(): void
     {
         $extensionConfiguration = $this->getExtensionConfiguration();
-
         $storage = GeneralUtility::makeInstance(Cookie::class, $extensionConfiguration['cookieName'], (int)$extensionConfiguration['cookieLifetime']);
         $data = $storage->read();
-
         $id = (int)($data[0] ?? 0);
         $language = (int)($data[1] ?? -1);
-
         $currentPersona = $newPersona = GeneralUtility::makeInstance(Persona::class, $id, $language);
 
         foreach ($this->subscribers as $subscriber) {
+            if (!class_exists($subscriber)) {
+                throw new \RuntimeException(sprintf('Class %s does not exist.', $subscriber), 1587540937);
+            }
+
             $object = GeneralUtility::makeInstance($subscriber);
+
             if (!$object instanceof SubscriberInterface) {
-                throw new \RuntimeException('Class ' . $subscriber . ' needs to implement Bitmotion\MarketingAutomation\SubscriberInterface', 1530273364);
+                throw new \RuntimeException(sprintf('Class %s needs to implement %s.', $subscriber, SubscriberInterface::class), 1530273364);
             }
 
             if ($object->needsUpdate($currentPersona, $newPersona)) {
@@ -47,12 +49,10 @@ class Dispatcher implements SingletonInterface
         }
 
         if ($currentPersona !== $newPersona) {
-            $storage->save(
-                [
-                    $newPersona->getId(),
-                    $newPersona->getLanguage(),
-                ]
-            );
+            $storage->save([
+                $newPersona->getId(),
+                $newPersona->getLanguage(),
+            ]);
         }
 
         foreach ($this->listeners as $listener) {
