@@ -63,14 +63,10 @@ class Dispatcher implements SingletonInterface
 
     protected function getExtensionConfiguration(): array
     {
-        if (class_exists(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)) {
-            try {
-                return GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('marketing_automation');
-            } catch (\Exception $e) {
-                return [];
-            }
-        } else {
-            return unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['marketing_automation'], ['allowed_classes' => false]);
+        try {
+            return GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('marketing_automation');
+        } catch (\Exception $e) {
+            return [];
         }
     }
 }
