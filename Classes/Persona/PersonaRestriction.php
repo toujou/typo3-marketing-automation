@@ -117,6 +117,7 @@ class PersonaRestriction implements SingletonInterface, QueryRestrictionInterfac
     private function buildPersonaFieldsRequiredDatabaseSchema(): string
     {
         $sql = '';
+
         foreach ($GLOBALS['TCA'] as $table => $config) {
             $personaFieldName = $config['ctrl']['enablecolumns'][self::PERSONA_ENABLE_FIELDS_KEY] ?? '';
             if ($personaFieldName) {
