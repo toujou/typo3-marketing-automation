@@ -30,7 +30,7 @@
   },
   "extra": {
     "typo3/cms": {
-      "extension-key": "marketing_automation",
+      "extension-key": "marketing_automation"
     }
   }
 }
