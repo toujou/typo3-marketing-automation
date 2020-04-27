@@ -19,7 +19,7 @@ class PersonaRestriction implements SingletonInterface, QueryRestrictionInterfac
 {
     public const PERSONA_ENABLE_FIELDS_KEY = 'tx_marketingautomation_persona';
 
-    private static $sqlFieldTemplate = 'CREATE TABLE %s ( %s varchar(100) DEFAULT \'\' NOT NULL);';
+    private static $sqlFieldTemplate = 'CREATE TABLE %s ( `%s` varchar(100) DEFAULT \'\' NOT NULL);';
 
     private static $tcaFieldTemplate = [
         'label' => 'LLL:EXT:marketing_automation/Resources/Private/Language/locallang_tca.xlf:tx_marketingautomation_persona_restriction.label',
@@ -108,20 +108,20 @@ class PersonaRestriction implements SingletonInterface, QueryRestrictionInterfac
     {
         $additionalSqlString = $this->buildPersonaFieldsRequiredDatabaseSchema();
         if (!empty($additionalSqlString)) {
-            $sqlString[] = $additionalSqlString;
+            $sqlString = array_merge($sqlString, $additionalSqlString);
         }
 
         return ['sqlString' => $sqlString];
     }
 
-    private function buildPersonaFieldsRequiredDatabaseSchema(): string
+    private function buildPersonaFieldsRequiredDatabaseSchema(): array
     {
-        $sql = '';
+        $sql = [];
 
         foreach ($GLOBALS['TCA'] as $table => $config) {
             $personaFieldName = $config['ctrl']['enablecolumns'][self::PERSONA_ENABLE_FIELDS_KEY] ?? '';
             if ($personaFieldName) {
-                $sql .= sprintf(self::$sqlFieldTemplate, $table, $personaFieldName);
+                $sql[] = sprintf(self::$sqlFieldTemplate, $table, $personaFieldName);
             }
         }
 
