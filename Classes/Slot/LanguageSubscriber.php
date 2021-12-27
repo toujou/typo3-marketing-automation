@@ -12,7 +12,7 @@ namespace Bitmotion\MarketingAutomation\Slot;
  *  (c) 2018 Florian Wessels <f.wessels@Leuchtfeuer.com>, Leuchtfeuer Digital Marketing
  *
  ***/
-
+use TYPO3\CMS\Core\Context\Context;
 use Bitmotion\MarketingAutomation\Dispatcher\SubscriberInterface;
 use Bitmotion\MarketingAutomation\Persona\Persona;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -25,7 +25,7 @@ class LanguageSubscriber implements SubscriberInterface
     public function __construct()
     {
         try {
-            $languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+            $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
             $this->languageId = (int)$languageAspect->getId();
         } catch (\Exception $e) {
             $this->languageId = 0;

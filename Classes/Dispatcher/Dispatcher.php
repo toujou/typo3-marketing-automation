@@ -12,7 +12,7 @@ namespace Bitmotion\MarketingAutomation\Dispatcher;
  *  (c) 2018 Florian Wessels <f.wessels@Leuchtfeuer.com>, Leuchtfeuer Digital Marketing
  *
  ***/
-
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use Bitmotion\MarketingAutomation\Persona\Persona;
 use Bitmotion\MarketingAutomation\Storage\Cookie;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -75,7 +75,7 @@ class Dispatcher implements SingletonInterface
     protected function getExtensionConfiguration(): array
     {
         try {
-            return GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('marketing_automation');
+            return GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('marketing_automation');
         } catch (\Exception $e) {
             return [];
         }

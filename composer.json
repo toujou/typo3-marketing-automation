@@ -15,9 +15,13 @@
     "email": "dev@Leuchtfeuer.com"
   },
   "require": {
-    "typo3/cms-backend": "^9.5.17 || ^10.4.2",
-    "typo3/cms-core": "^9.5.17 || ^10.4.2",
-    "typo3/cms-extbase": "^9.5.17 || ^10.4.2"
+    "typo3/cms-backend": "^10.4.12 || ^11.5",
+    "typo3/cms-core": "^10.4.12 || ^11.5",
+    "typo3/cms-extbase": "^10.4.12 || ^11.5"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "rector/rector": "^0.12.9"
   },
   "autoload": {
     "psr-4": {
@@ -31,6 +35,12 @@
   "extra": {
     "typo3/cms": {
       "extension-key": "marketing_automation"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/class-alias-loader": true,
+      "typo3/cms-composer-installers": true
     }
   }
 }

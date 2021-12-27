@@ -12,7 +12,8 @@ namespace Bitmotion\MarketingAutomation\Persona;
  *  (c) 2018 Florian Wessels <f.wessels@Leuchtfeuer.com>, Leuchtfeuer Digital Marketing
  *
  ***/
-
+use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\PageLayoutView;
 use TYPO3\CMS\Backend\View\PageLayoutViewDrawFooterHookInterface;
@@ -105,7 +106,7 @@ class PersonaRestriction implements SingletonInterface, QueryRestrictionInterfac
 
     private function isEnabled(): bool
     {
-        return $this->persona !== null && TYPO3_MODE === 'FE';
+        return $this->persona !== null && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend();
     }
 
     /**
@@ -150,7 +151,7 @@ class PersonaRestriction implements SingletonInterface, QueryRestrictionInterfac
                 );
                 // Expose current config to globals TCA, make the below TYPO3 API work, which works on globals
                 $GLOBALS['TCA'][$table] = &$config;
-                \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+                ExtensionManagementUtility::addToAllTCAtypes(
                     $table,
                     $personaFieldName,
                     '',
